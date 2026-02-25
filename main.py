@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from settings import * 
 
 app = FastAPI(
     title="API de Configuración",
@@ -9,3 +10,10 @@ app = FastAPI(
 @app.get("/")
 def prueba():
     return "Hola mundo"
+
+@app.get("/config")
+def config():
+    return {
+        "app_env": APP_ENV,
+        "port": PORT
+    }
