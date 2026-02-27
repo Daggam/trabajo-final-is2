@@ -73,3 +73,9 @@ def runtime():
     }
 
     return data
+
+@app.get("/health")
+def health():
+    return {
+        "status": "ok"
+    }
