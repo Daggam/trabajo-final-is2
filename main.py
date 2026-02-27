@@ -12,6 +12,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
+
 @app.get("/")
 def root():
     return {
@@ -26,6 +27,30 @@ def root():
             "/docs"
         ]
     }
+
+@app.get("/build")
+def build():
+    return {
+        "build_time": BUILD_TIME,
+        "base_image": BASE_IMAGE
+    }
+
+@app.get("/config")
+def config():
+    return {
+        "app_env": APP_ENV,
+        "port": PORT
+    }
+
+@app.get("/version")
+def version():
+    return {
+        "service_name":SERVICE_NAME,
+        "app_version": app.version,
+        "python_version": platform.python_version(),
+        "environment":"docker"
+    }
+
 
 
 @app.get("/runtime")
@@ -79,3 +104,4 @@ def health():
     return {
         "status": "ok"
     }
+
