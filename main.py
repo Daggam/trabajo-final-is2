@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from settings import * 
+from settings import *
+import platform
 
 app = FastAPI(
     title="API de Configuración",
@@ -16,4 +17,13 @@ def config():
     return {
         "app_env": APP_ENV,
         "port": PORT
+    }
+
+@app.get("/version")
+def version():
+    return {
+        "service_name":SERVICE_NAME,
+        "app_version": app.version,
+        "python_version": platform.python_version(),
+        "environment":"docker"
     }
