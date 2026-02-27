@@ -1,9 +1,6 @@
 from fastapi import FastAPI
 import platform
-from settings import (
-    BUILD_TIME,
-    BASE_IMAGE
-)
+
 
 app = FastAPI(
     title="API de Configuración",
@@ -11,10 +8,12 @@ app = FastAPI(
     version="1.0.0"
 )
 
-@app.get("/build")
-def build():
+@app.get("/health")
+def health():
     return {
-        "build_time": BUILD_TIME,
-        "base_image": BASE_IMAGE
+        "status": "ok"
     }
 
+@app.get("/")
+def prueba():
+    return "Hola mundo"
