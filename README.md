@@ -59,6 +59,7 @@ El uso de un entrypoint separado mejora la modularidad y facilita futuras extens
 ### Ejecución del sistema
     uv run uvicorn main:app --reload --port 5000
 Como se levanta la API:
+
     uv run uvicorn main:app --reload --port 5000
 La imagen se construye con: 
 
