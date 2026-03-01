@@ -4,7 +4,7 @@
 - [Introducción](#introducción)
 - [Desarrollo práctico]()
 - [Beneficios]()
-- [Desafios y consideraciones]()
+- [Desafios y consideraciones](#desafíos-y-consideraciones)
 - [Conclusión]()
 - [Referencias]()
 
@@ -49,7 +49,7 @@ Tuvimos desafíos al hacer uso de Docker para la contenerización:
 * Los contenedores se comportan como máquinas aisladas de la principal. Esto hace que los puertos del contenedor sean independientes de los puertos de la máquina principal.
 
 Para solucionar estas dos cuestiones, es necesario:
-1. Crear el contenedor mapeando el puerto 8000 del mismo al puerto 8000 del localhost
-2. Hacer que la aplicación dentro del contenedor se ejecute en el host 0.0.0.0
+1. Crear el contenedor mapeando el puerto 8000 del mismo al puerto 8000 de la máquina principal.
+2. Hacer que la aplicación dentro del contenedor se ejecute en el host 0.0.0.0.
 
 Con esto, ya es posible acceder a la aplicación dentro del contenedor desde el localhost de la máquina principal.
