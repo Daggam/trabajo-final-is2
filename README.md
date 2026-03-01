@@ -35,3 +35,13 @@ El archivo uv.lock garantiza la instalación exacta de versiones, permitiendo re
 ### Ejecución del sistema
 
 ----Los últimos dos apartados son sugerencias
+
+
+## Desafíos y consideraciones
+
+### Desafíos
+
+El trabajo en paralelo de diferentes miembros del equipo es un desafío para nosotros. Para tener un registro de las versiones del proyecto y poder trabajar de forma a
+
+
+Al trabajar entre muchas personas, es necesario llevar un registro de las versiones de los paquetes que se usan, 
