@@ -41,7 +41,10 @@ El archivo uv.lock garantiza la instalación exacta de versiones, permitiendo re
 
 ### Desafíos
 
-El trabajo en paralelo de diferentes miembros del equipo es un desafío para nosotros. Para tener un registro de las versiones del proyecto y poder trabajar de forma a
+El trabajo en paralelo de diferentes miembros del equipo es un desafío para nosotros. Para tener un registro de las versiones del proyecto y poder trabajar de forma aislada, decidimos trabajar como contribuyentes de un mismo repositorio (no un fork), y crear ramas por cada componente. A demás, una persona trabaja en una sola rama, y al finalizar su componente, hace un "merge" de la misma a la rama **main**. Así, basta con hacer un pull del repositorio para tener una versión actualizada.
+
+Tuvimos desafíos al hacer uso de Docker para la contenerización:
+* 
 
 
 Al trabajar entre muchas personas, es necesario llevar un registro de las versiones de los paquetes que se usan, 
