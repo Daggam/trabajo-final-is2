@@ -2,8 +2,8 @@
 
 ## Índice
 - [Introducción](#introducción)
-- [Desarrollo práctico]()
-- [Beneficios]()
+- [Desarrollo práctico](#desarrollo-técnico)
+- [Beneficios](#beneficios)
 - [Desafios y consideraciones]()
 - [Conclusión]()
 - [Referencias]()
@@ -35,3 +35,27 @@ El archivo uv.lock garantiza la instalación exacta de versiones, permitiendo re
 ### Ejecución del sistema
 
 ----Los últimos dos apartados son sugerencias
+
+## Beneficios
+
+Este proyecto de API REST con **FastAPI** y despliegue mediante **Docker** aporta múltiples ventajas tanto técnicas como operativas:
+
+### Beneficios Técnicos
+- **Alto rendimiento**: FastAPI ofrece gran velocidad y soporte para concurrencia.
+- **Despliegue consistente**: Docker garantiza que la aplicación se ejecute de forma idéntica en cualquier entorno.
+- **Modularidad y claridad**: Endpoints definidos de manera sencilla y organizada, facilitando el mantenimiento.
+
+### Beneficios Operativos
+- **Monitoreo integrado**: Endpoints de estado y configuración permiten verificar rápidamente la salud del servidor.
+- **Transparencia**: Exposición de información clave (versión, puerto, tiempo de ejecución, endpoints disponibles).
+- **Escalabilidad**: Fácil replicación y despliegue en múltiples instancias gracias a Docker.
+
+### Beneficios para el Desarrollo
+- **Pruebas simplificadas**: Endpoints de configuración y estado facilitan la validación en desarrollo y despliegue.
+- **Documentación automática**: FastAPI genera documentación interactiva (Swagger/OpenAPI).
+- **Integración continua**: Compatible con pipelines de CI/CD, reduciendo errores y tiempos de entrega.
+
+### Beneficios Organizacionales
+- **Estandarización**: Forma uniforme de consultar información del servidor en distintos entornos.
+- **Reducción de costos**: Menos tiempo invertido en configuraciones manuales y resolución de problemas.
+- **Confiabilidad**: La combinación de FastAPI y Docker asegura estabilidad y reproducibilidad en producción.
