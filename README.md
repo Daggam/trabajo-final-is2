@@ -53,3 +53,27 @@ Para solucionar estas dos cuestiones, es necesario:
 2. Hacer que la aplicación dentro del contenedor se ejecute en el host 0.0.0.0.
 
 Con esto, ya es posible acceder a la aplicación dentro del contenedor desde el localhost de la máquina principal.
+
+### Consideraciones
+
+Al trabajar con este proyecto, consideramos lo siguiente.
+
+#### ¿Que vamos a contenerizar?
+
+Al contenerizar una aplicación debemos tener en cuenta como y que vamos a contenerizar. Si nuestro proyecto tuviese una base de datos, el problema se complejizaria más, ya que sería ideal que tengamos migraciones de bases de datos para tener trazabilidad y consistencia en la base de datos, o si tenemos algo simple podriamos tener un archivo .sql que inicialice la base de datos. Y en este caso hipotetico, nuestra REST API dependería de la base de datos, por lo que, por comodidad, sería ideal optar por levantar contenedores utilizando un archivo docker-compose.yaml.
+
+En nuestro caso era una aplicación backend pequeña que utiliza un administrador de proyectos (uv) el cual tenía una imagen propia, por lo que la utilizamos de base para crear la nuestra. Optamos por simplificar el problema.
+
+### ¿Que estrategias de ramificación utilizamos?
+
+Cuando se trabaja en equipo utilizando un VCS como git que permite crear ramas de manera eficiente, podemos aprovechar esta caracteristica y desarrollar o utilizar estrategias de ramificación para una experiencia de desarrollo más productiva.
+Nuestra estrategia se baso estrictamente en:
+
+- Cada colaborador, cuando decida realizar algún cambio al proyecto, deberá crear una rama utilizando la siguiente convención:
+
+    - feature/nombre-feature: En caso de que se quiera agregar una nueva funcionalidad al sistema. (crear endpoints, crear imagen docker, algo que dote de funcionalidad al sistema)
+    - bugfix/nombre-bugfix: En caso de que se quiera solucionar un bug.
+    - docs/nombre-docs: En caso de que se quiera agregar/modificar documentación al sistema.
+
+- Cada colaborador trabaja en su rama.
+- Una vez se termine de trabajar en la rama (cumplió su proposito) se realiza un merge a main y se notifica al equipo.
