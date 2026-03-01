@@ -1,4 +1,11 @@
-# FastAPI + Docker: Contenerización de una REST API.
+<h1 align=center><b>FastAPI + Docker: Contenerización de una REST API.</b></h1>
+
+<h2 align=center><b>Integrantes</b></h2>
+<br>
+<p align=center><b>Adad, Juan Augusto</b></p>
+<p align=center><b>Gimenez, Maria Victoria</b></p>
+<p align=center><b>Lescano Stisman, Mikael</b></p>
+<p align=center><b>Villa, Benjamin</b></p>
 
 ## Índice
 - [Introducción](#introducción)
