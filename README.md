@@ -19,11 +19,16 @@ El objetivo es demostrar cómo estas herramientas permiten construir y ejecutar 
 ## Desarrollo Técnico
 ### Estructura del proyecto
     trabajo-final-is2/
+    ├── scripts/
+    |   ├── build_and_run.sh
+    |   └── entrypoint.sh
     ├── main.py
     ├── settings.py
     ├── pyproject.toml
     ├── uv.lock
-    └── Dockerfile
+    ├── Dockerfile
+    ├── .gitignore
+    └── .dockerignore
    
 #### Implementación de los endpoints
 - `/`: El endpoint `/` devuelve un pequeño objeto JSON con metadatos del servicio. Se utiliza como “pantalla de bienvenida” o índice de la API durante el desarrollo. El contenido del JSON se construye a partir de la constante **SERVICE_NAME** en **settings.py** y lista las rutas más relevantes disponibles.
@@ -34,8 +39,8 @@ El objetivo es demostrar cómo estas herramientas permiten construir y ejecutar 
 - `/health`: El endpoint `/health` permite verificar que el servicio se encuentra en ejecución y respondiendo correctamente. Actua como un mecanismo básico de monitoreo, facilitando la detección rápida de fallas y la validación del estado del sistema.
 
 ### Gestión de dependencias con uv
-Las dependencias del proyecto se gestionan mediante uv, utilizando los archivos pyproject.toml y uv.lock. 
-El archivo uv.lock garantiza la instalación exacta de versiones, permitiendo reproducibilidad del entorno.
+Las dependencias del proyecto se gestionan mediante uv, utilizando los archivos `pyproject.toml` y `uv.lock`. 
+El archivo `uv.lock` garantiza la instalación exacta de versiones, permitiendo reproducibilidad del entorno.
 
 ### Contenerización con Docker
 
@@ -131,16 +136,16 @@ Nuestra estrategia se baso estrictamente en:
 
 - Cada colaborador, cuando decida realizar algún cambio al proyecto, deberá crear una rama utilizando la siguiente convención:
 
-    - feature/nombre-feature: En caso de que se quiera agregar una nueva funcionalidad al sistema. (crear endpoints, crear imagen docker, algo que dote de funcionalidad al sistema)
-    - bugfix/nombre-bugfix: En caso de que se quiera solucionar un bug.
-    - docs/nombre-docs: En caso de que se quiera agregar/modificar documentación al sistema.
+    - `feature/nombre-feature`: En caso de que se quiera agregar una nueva funcionalidad al sistema. (crear endpoints, crear imagen docker, algo que dote de funcionalidad al sistema)
+    - `bugfix/nombre-bugfix`: En caso de que se quiera solucionar un bug.
+    - `docs/nombre-docs`: En caso de que se quiera agregar/modificar documentación al sistema.
 
 - Cada colaborador trabaja en su rama.
 - Una vez se termine de trabajar en la rama (cumplió su proposito) se realiza un merge a main y se notifica al equipo.
 
 #### Convenciones de commit
 
-Para el desarrollo de este proyecto utilizamos de varias convenciones (estrategias de branching, la utilización de un gestor de proyectos, un VCS), entre ellas utilizamos una llamada **Conventional Commits**. Hacemos uso de esta para una mejor legibilidad y consistencia entre commits. Dejamos en la sección de referencias el enlace que especifica esta convención.
+Para el desarrollo de este proyecto utilizamos de varias convenciones (estrategias de branching, la utilización de un gestor de proyectos, un VCS), entre ellas utilizamos una llamada **Conventional Commits**. Hacemos uso de esta para una mejor legibilidad y consistencia entre commits. Dejamos en la sección de [referencias](#referencias) el enlace que especifica esta convención.
 
 
 ## Conclusión
