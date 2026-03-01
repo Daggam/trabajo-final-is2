@@ -6,7 +6,7 @@
 - [Beneficios](#beneficios)
 - [Desafios y consideraciones](#desafíos-y-consideraciones)
 - [Conclusión](#conclusión)
-- [Referencias]()
+- [Referencias](#referencias)
 
 ## Introducción
 
@@ -154,3 +154,13 @@ Con este proyecto aprendimos:
 - La utilización de uv como gestor de proyectos nos da de una mejor experiencia de desarrollo. Unifica la gestión de paquetes, entornos virtuales y versiones de python en una sola herramienta que es extremadamente rápida. La capacidad que tiene para generar lockfiles se complementa con Docker, garantizándonos las instalaciones rápidas y seguras.
 
 Finalmente, podemos concluir que la utilización de estas herramientas en la ingenieria de software nos provee de una mejor reproducibilidad del entorno que finalmente nos lleva a una mejor experiencia de desarrollo.
+
+## Referencias
+
+- [uv](https://docs.astral.sh/uv/)
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Docker](https://docs.docker.com/reference/)
+- [Estrategias de ramificacion](https://medium.com/@abhay.pixolo/naming-conventions-for-git-branches-a-cheatsheet-8549feca2534)
+- [Conventional Commits](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13)
+- [Git Pro](https://git-scm.com/book/en/v2)
+- [Contenerizar uv](https://docs.astral.sh/uv/getting-started/installation/#docker)
