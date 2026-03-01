@@ -29,6 +29,8 @@ El objetivo es demostrar cómo estas herramientas permiten construir y ejecutar 
 - `/`: El endpoint `/` devuelve un pequeño objeto JSON con metadatos del servicio. Se utiliza como “pantalla de bienvenida” o índice de la API durante el desarrollo. El contenido del JSON se construye a partir de la constante **SERVICE_NAME** en **settings.py** y lista las rutas más relevantes disponibles.
 - `/build`: El endpoint `/build` expone información relacionada con la construcción del sistema, incluyendo variables de entorno definidas durante el proceso de build.
 - `/runtime:` El endpoint `/runtime` ofrece información del sistema en donde se corre la aplicación: sistema operativo, versión del SO, distribución, usuario, pid, uso de CPU, uso de memoria, tiempo de inicio y fecha de inicio.
+- `/config`: Devuelve la configuración base del sistema, incluyendo el entorno de ejecución y el puerto configurado.
+- `/version`: Proporciona información técnica del servicio, incluyendo el nombre, versión de la app, versión de Python y el entorno de despliegue.
 - `/health`: El endpoint `/health` permite verificar que el servicio se encuentra en ejecución y respondiendo correctamente. Actua como un mecanismo básico de monitoreo, facilitando la detección rápida de fallas y la validación del estado del sistema.
 
 ### Gestión de dependencias con uv
