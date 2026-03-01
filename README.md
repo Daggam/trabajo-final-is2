@@ -33,6 +33,34 @@ El objetivo es demostrar cómo estas herramientas permiten construir y ejecutar 
 
 ### Gestión de dependencias con uv
 
-### Ejecución del sistema
+### Contenerización con Docker
 
-----Los últimos dos apartados son sugerencias
+Para garantizar un entorno de ejecución consistente y reproducible, se definió un `Dockerfile` que describe la imagen base, las dependencias y el proceso de construcción del servicio.
+
+Se utiliza como base:
+
+    FROM python:3.12-slim-trixie
+
+Las dependencias se instalan mediante uv, utilizando el archivo uv.lock para asegurar versiones exactas:
+
+    RUN uv sync --locked
+Durante la construcción del contenedor se calcula dinámicamente el tiempo de build, el cual es utilizado por el endpoint /build:
+
+    ARG START_TIME
+    RUN BUILD_TIME=$(( $(date +%s) - $START_TIME)) && echo $BUILD_TIME >.build_time.txt
+Se define un script entrypoint.sh como punto de entrada del contenedor:
+
+    ENTRYPOINT ["./entrypoint.sh"]
+
+Este script encapsula la lógica de arranque del servicio y permite, si fuera necesario, realizar configuraciones previas antes de iniciar la aplicación.
+El uso de un entrypoint separado mejora la modularidad y facilita futuras extensiones.
+
+
+### Ejecución del sistema
+    uv run uvicorn main:app --reload --port 5000
+Como se levanta la API:
+    uv run uvicorn main:app --reload --port 5000
+La imagen se construye con: 
+
+    docker build -t api-configuracion .
+    docker run -p 5000:5000 api-configuracion
