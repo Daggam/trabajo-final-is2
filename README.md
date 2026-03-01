@@ -13,7 +13,7 @@
 - [Beneficios](#beneficios)
 - [Desafios y consideraciones](#desafíos-y-consideraciones)
 - [Conclusión](#conclusión)
-- [Referencias]()
+- [Referencias](#referencias)
 
 ## Introducción
 
@@ -26,21 +26,28 @@ El objetivo es demostrar cómo estas herramientas permiten construir y ejecutar 
 ## Desarrollo Técnico
 ### Estructura del proyecto
     trabajo-final-is2/
+    ├── scripts/
+    |   ├── build_and_run.sh
+    |   └── entrypoint.sh
     ├── main.py
     ├── settings.py
     ├── pyproject.toml
     ├── uv.lock
-    └── Dockerfile
+    ├── Dockerfile
+    ├── .gitignore
+    └── .dockerignore
    
 #### Implementación de los endpoints
 - `/`: El endpoint `/` devuelve un pequeño objeto JSON con metadatos del servicio. Se utiliza como “pantalla de bienvenida” o índice de la API durante el desarrollo. El contenido del JSON se construye a partir de la constante **SERVICE_NAME** en **settings.py** y lista las rutas más relevantes disponibles.
 - `/build`: El endpoint `/build` expone información relacionada con la construcción del sistema, incluyendo variables de entorno definidas durante el proceso de build.
 - `/runtime:` El endpoint `/runtime` ofrece información del sistema en donde se corre la aplicación: sistema operativo, versión del SO, distribución, usuario, pid, uso de CPU, uso de memoria, tiempo de inicio y fecha de inicio.
+- `/config`: Devuelve la configuración base del sistema, incluyendo el entorno de ejecución y el puerto configurado.
+- `/version`: Proporciona información técnica del servicio, incluyendo el nombre, versión de la app, versión de Python y el entorno de despliegue.
 - `/health`: El endpoint `/health` permite verificar que el servicio se encuentra en ejecución y respondiendo correctamente. Actua como un mecanismo básico de monitoreo, facilitando la detección rápida de fallas y la validación del estado del sistema.
 
 ### Gestión de dependencias con uv
-Las dependencias del proyecto se gestionan mediante uv, utilizando los archivos pyproject.toml y uv.lock. 
-El archivo uv.lock garantiza la instalación exacta de versiones, permitiendo reproducibilidad del entorno.
+Las dependencias del proyecto se gestionan mediante uv, utilizando los archivos `pyproject.toml` y `uv.lock`. 
+El archivo `uv.lock` garantiza la instalación exacta de versiones, permitiendo reproducibilidad del entorno.
 
 ### Contenerización con Docker
 
@@ -136,12 +143,17 @@ Nuestra estrategia se baso estrictamente en:
 
 - Cada colaborador, cuando decida realizar algún cambio al proyecto, deberá crear una rama utilizando la siguiente convención:
 
-    - feature/nombre-feature: En caso de que se quiera agregar una nueva funcionalidad al sistema. (crear endpoints, crear imagen docker, algo que dote de funcionalidad al sistema)
-    - bugfix/nombre-bugfix: En caso de que se quiera solucionar un bug.
-    - docs/nombre-docs: En caso de que se quiera agregar/modificar documentación al sistema.
+    - `feature/nombre-feature`: En caso de que se quiera agregar una nueva funcionalidad al sistema. (crear endpoints, crear imagen docker, algo que dote de funcionalidad al sistema)
+    - `bugfix/nombre-bugfix`: En caso de que se quiera solucionar un bug.
+    - `docs/nombre-docs`: En caso de que se quiera agregar/modificar documentación al sistema.
 
 - Cada colaborador trabaja en su rama.
 - Una vez se termine de trabajar en la rama (cumplió su proposito) se realiza un merge a main y se notifica al equipo.
+
+#### Convenciones de commit
+
+Para el desarrollo de este proyecto utilizamos de varias convenciones (estrategias de branching, la utilización de un gestor de proyectos, un VCS), entre ellas utilizamos una llamada **Conventional Commits**. Hacemos uso de esta para una mejor legibilidad y consistencia entre commits. Dejamos en la sección de [referencias](#referencias) el enlace que especifica esta convención.
+
 
 ## Conclusión
 
@@ -154,3 +166,13 @@ Con este proyecto aprendimos:
 - La utilización de uv como gestor de proyectos nos da de una mejor experiencia de desarrollo. Unifica la gestión de paquetes, entornos virtuales y versiones de python en una sola herramienta que es extremadamente rápida. La capacidad que tiene para generar lockfiles se complementa con Docker, garantizándonos las instalaciones rápidas y seguras.
 
 Finalmente, podemos concluir que la utilización de estas herramientas en la ingenieria de software nos provee de una mejor reproducibilidad del entorno que finalmente nos lleva a una mejor experiencia de desarrollo.
+
+## Referencias
+
+- [uv](https://docs.astral.sh/uv/)
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Docker](https://docs.docker.com/reference/)
+- [Estrategias de ramificacion](https://medium.com/@abhay.pixolo/naming-conventions-for-git-branches-a-cheatsheet-8549feca2534)
+- [Conventional Commits](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13)
+- [Git Pro](https://git-scm.com/book/en/v2)
+- [Contenerizar uv](https://docs.astral.sh/uv/getting-started/installation/#docker)
