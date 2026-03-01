@@ -138,6 +138,11 @@ Nuestra estrategia se baso estrictamente en:
 - Cada colaborador trabaja en su rama.
 - Una vez se termine de trabajar en la rama (cumplió su proposito) se realiza un merge a main y se notifica al equipo.
 
+#### Convenciones de commit
+
+Para el desarrollo de este proyecto utilizamos de varias convenciones (estrategias de branching, la utilización de un gestor de proyectos, un VCS), entre ellas utilizamos una llamada **Conventional Commits**. Hacemos uso de esta para una mejor legibilidad y consistencia entre commits. Dejamos en la sección de referencias el enlace que especifica esta convención.
+
+
 ## Conclusión
 
 Con este proyecto aprendimos:
