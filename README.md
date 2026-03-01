@@ -60,3 +60,15 @@ Este proyecto de API REST con **FastAPI** y despliegue mediante **Docker** aport
 - **Estandarización**: Forma uniforme de consultar información del servidor en distintos entornos.
 - **Reducción de costos**: Menos tiempo invertido en configuraciones manuales y resolución de problemas.
 - **Confiabilidad**: La combinación de FastAPI y Docker asegura estabilidad y reproducibilidad en producción.
+
+## Conclusión
+
+Con este proyecto aprendimos:
+
+- El contenerizar las aplicaciones nos ayuda a eliminar los problemas causados por las diferencias entre sistemas operativos y/o versiones de librerias globales. Cada desarrollador levanta exactamente el mismo entorno de ejecución, permitiendonos así la reproducibilidad del entorno, un comportamiento predecible de la aplicación que parte desde el desarrollo hasta producción.
+
+- Trabajar en equipo utilizando un VCS como git, implica utilizar una estrategia de ramificación que permite trabajar en múltiples funcionalidades, correcciones y minimización de conflictos en el código.
+
+- La utilización de uv como gestor de proyectos nos da de una mejor experiencia de desarrollo. Unifica la gestión de paquetes, entornos virtuales y versiones de python en una sola herramienta que es extremadamente rápida. La capacidad que tiene para generar lockfiles se complementa con Docker, garantizándonos las instalaciones rápidas y seguras.
+
+Finalmente, podemos concluir que la utilización de estas herramientas en la ingenieria de software nos provee de una mejor reproducibilidad del entorno que finalmente nos lleva a una mejor experiencia de desarrollo.
