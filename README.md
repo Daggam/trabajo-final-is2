@@ -30,7 +30,8 @@ El objetivo es demostrar cómo estas herramientas permiten construir y ejecutar 
 - `/health`: El endpoint `/health` permite verificar que el servicio se encuentra en ejecución y respondiendo correctamente. Actua como un mecanismo básico de monitoreo, facilitando la detección rápida de fallas y la validación del estado del sistema.
 
 ### Gestión de dependencias con uv
-
+Las dependencias del proyecto se gestionan mediante uv, utilizando los archivos pyproject.toml y uv.lock. 
+El archivo uv.lock garantiza la instalación exacta de versiones, permitiendo reproducibilidad del entorno.
 ### Ejecución del sistema
 
 ----Los últimos dos apartados son sugerencias
