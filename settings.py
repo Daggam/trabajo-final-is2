@@ -5,5 +5,5 @@ BUILD_TIME = os.getenv("BUILD_TIME", "unknown")
 BASE_IMAGE = os.getenv("BASE_IMAGE", "python:3.12-slim")
 
 
-APP_ENV = os.getenv("APP_ENV","production")
+APP_ENV = os.getenv("APP_ENV","development")
 PORT = int(os.getenv("PORT",5000))
