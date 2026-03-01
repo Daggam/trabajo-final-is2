@@ -33,9 +33,42 @@ El objetivo es demostrar cómo estas herramientas permiten construir y ejecutar 
 ### Gestión de dependencias con uv
 Las dependencias del proyecto se gestionan mediante uv, utilizando los archivos pyproject.toml y uv.lock. 
 El archivo uv.lock garantiza la instalación exacta de versiones, permitiendo reproducibilidad del entorno.
-### Ejecución del sistema
 
-----Los últimos dos apartados son sugerencias
+### Contenerización con Docker
+
+Para garantizar un entorno de ejecución consistente y reproducible, se definió un `Dockerfile` que describe la imagen base, las dependencias y el proceso de construcción del servicio.
+
+Se utiliza como base:
+
+    FROM python:3.12-slim-trixie
+
+Las dependencias se instalan mediante uv, utilizando el archivo uv.lock para asegurar versiones exactas:
+
+    RUN uv sync --locked
+Durante la construcción del contenedor se calcula dinámicamente el tiempo de build, el cual es utilizado por el endpoint /build:
+
+    ARG START_TIME
+    RUN BUILD_TIME=$(( $(date +%s) - $START_TIME)) && echo $BUILD_TIME >.build_time.txt
+Se define un script entrypoint.sh como punto de entrada del contenedor:
+
+    ENTRYPOINT ["./entrypoint.sh"]
+
+Este script encapsula la lógica de arranque del servicio y permite, si fuera necesario, realizar configuraciones previas antes de iniciar la aplicación.
+El uso de un entrypoint separado mejora la modularidad y facilita futuras extensiones.
+
+
+### Ejecución del sistema
+Para ejecutar el sistema tenes dos posibilidades, sin el dockerfile o con el dockerfile.
+Con el docker file, podes utilizar el script que esta en la carpeta 
+
+    scripts/build_and_run.sh
+    
+Para ejecutar el script simplemente debes hacer:
+
+    chmod +x ./script/build_and_run.sh
+    ./build_and_run.sh
+
+Es necesario correr el script en un interprete de bash, powershell no tenemos.
 
 ## Beneficios
 
