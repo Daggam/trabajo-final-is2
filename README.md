@@ -87,11 +87,10 @@ Es necesario correr el script en un interprete de bash, powershell no tenemos.
 
 ## Beneficios
 
-Este proyecto de API REST con **FastAPI** y despliegue mediante **Docker** aporta múltiples ventajas tanto técnicas como operativas:
+Este proyecto de API REST hecho con **FastAPI** y contenerización mediante **Docker** aporta múltiples ventajas:
 
 ### Beneficios Técnicos
 - **Alto rendimiento**: FastAPI ofrece gran velocidad y soporte para concurrencia.
-- **Despliegue consistente**: Docker garantiza que la aplicación se ejecute de forma idéntica en cualquier entorno.
 - **Modularidad y claridad**: Endpoints definidos de manera sencilla y organizada, facilitando el mantenimiento.
 
 ### Beneficios Operativos
@@ -101,13 +100,12 @@ Este proyecto de API REST con **FastAPI** y despliegue mediante **Docker** aport
 
 ### Beneficios para el Desarrollo
 - **Pruebas simplificadas**: Endpoints de configuración y estado facilitan la validación en desarrollo y despliegue.
-- **Documentación automática**: FastAPI genera documentación interactiva (Swagger/OpenAPI).
+- **Documentación**: FastAPI genera documentación interactiva (Swagger/OpenAPI).
 - **Integración continua**: Compatible con pipelines de CI/CD, reduciendo errores y tiempos de entrega.
 
 ### Beneficios Organizacionales
 - **Estandarización**: Forma uniforme de consultar información del servidor en distintos entornos.
 - **Reducción de costos**: Menos tiempo invertido en configuraciones manuales y resolución de problemas.
-- **Confiabilidad**: La combinación de FastAPI y Docker asegura estabilidad y reproducibilidad en producción.
 
 ## Desafíos y consideraciones
 
