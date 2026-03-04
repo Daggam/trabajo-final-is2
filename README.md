@@ -39,15 +39,19 @@ El objetivo es demostrar cómo estas herramientas permiten construir y ejecutar 
    
 #### Implementación de los endpoints
 - `/`: El endpoint `/` devuelve un pequeño objeto JSON con metadatos del servicio. Se utiliza como “pantalla de bienvenida” o índice de la API durante el desarrollo. El contenido del JSON se construye a partir de la constante **SERVICE_NAME** en **settings.py** y lista las rutas más relevantes disponibles.
-- `/build`: El endpoint `/build` expone información relacionada con la construcción del sistema, incluyendo variables de entorno definidas durante el proceso de build.
+- `/build`: Expone información relacionada con la construcción del sistema, incluyendo variables de entorno definidas durante el proceso de build.
 - `/runtime:` El endpoint `/runtime` ofrece información del sistema en donde se corre la aplicación: sistema operativo, versión del SO, distribución, usuario, pid, uso de CPU, uso de memoria, tiempo de inicio y fecha de inicio.
 - `/config`: Devuelve la configuración base del sistema, incluyendo el entorno de ejecución y el puerto configurado.
 - `/version`: Proporciona información técnica del servicio, incluyendo el nombre, versión de la app, versión de Python y el entorno de despliegue.
-- `/health`: El endpoint `/health` permite verificar que el servicio se encuentra en ejecución y respondiendo correctamente. Actua como un mecanismo básico de monitoreo, facilitando la detección rápida de fallas y la validación del estado del sistema.
+- `/health`: El endpoint permite verificar que el servicio se encuentra en ejecución y respondiendo correctamente. Actua como un mecanismo básico de monitoreo, facilitando la detección rápida de fallas y la validación del estado del sistema.
+  
+---
 
 ### Gestión de dependencias con uv
 Las dependencias del proyecto se gestionan mediante uv, utilizando los archivos `pyproject.toml` y `uv.lock`. 
 El archivo `uv.lock` garantiza la instalación exacta de versiones, permitiendo reproducibilidad del entorno.
+
+---
 
 ### Contenerización con Docker
 
@@ -70,6 +74,138 @@ Se define un script entrypoint.sh como punto de entrada del contenedor:
 
 Este script encapsula la lógica de arranque del servicio y permite, si fuera necesario, realizar configuraciones previas antes de iniciar la aplicación.
 El uso de un entrypoint separado mejora la modularidad y facilita futuras extensiones.
+
+---
+
+### Alternativas de incorporación de `uv` en el contenedor
+
+Cuando queremos utilizar `uv` en un contenedor, hay varias caminos que podemos tomar. Cada uno tiene sus ventajas y desventajas dependiendo de si buscamos simplificar las cosas, tener máximo rendimiento, o solo que funcione rápido.
+
+Las opciones más practicas son:
+
+
+
+#### Opción 1: Usar la imagen oficial de `uv` como base
+
+Es la forma más directa. En lugar de arrancar con Python y agregar `uv` después, directamente usamos la imagen que `uv` mantiene con todo preconfigurado.
+Se utiliza cuando se trabaja localmente y se quiere algo más simple, por ejemplo, cuando el equipo es chico y no les importa una imagen más grande.
+
+```dockerfile
+FROM ghcr.io/astral-sh/uv:python3.12-trixie-slim
+
+ARG START_TIME
+
+WORKDIR /app
+
+COPY main.py settings.py pyproject.toml uv.lock .python-version ./scripts/entrypoint.sh ./
+
+RUN chmod +x ./entrypoint.sh
+
+ENV UV_NO_DEV=1
+
+RUN uv sync --locked;
+
+RUN BUILD_TIME=$(( $(date +%s) - $START_TIME)) && echo $BUILD_TIME > ./build_time.txt
+
+ENV BASE_IMAGE=ghcr.io/astral-sh/uv:python3.12-trixie-slim
+
+ENTRYPOINT ["./entrypoint.sh" ]
+```
+
+
+**Ventajas:**
+- Muy fácil de entender, es prácticamente una copia
+- Menos cosas que pueden salir mal
+- Todo viene preconfigurado
+
+**Desventajas:**
+- La imagen final es más pesada
+- Menos control sobre qué exactamente incluís en el contenedor
+
+
+
+#### Opción 2: Instalar `uv` con `pip`
+
+La forma tradicional de hacerlo. Usamos Python como base y simplemente instalamos `uv` como cualquier otro paquete.
+Se usa, por ejemplo, si querés la forma más estándar y familiar; cuando trabajás con otros que siempre usan `pip`.
+
+```dockerfile
+FROM python:3.12-slim-trixie
+
+ARG START_TIME
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir uv
+
+COPY main.py settings.py pyproject.toml uv.lock .python-version ./scripts/entrypoint.sh ./
+
+RUN chmod +x ./entrypoint.sh
+
+ENV UV_NO_DEV=1
+
+RUN uv sync --locked;
+
+RUN BUILD_TIME=$(( $(date +%s) - $START_TIME)) && echo $BUILD_TIME > ./build_time.txt
+
+ENV BASE_IMAGE=python:3.12-slim-trixie
+
+ENTRYPOINT ["./entrypoint.sh" ]
+```
+
+
+**Ventajas:**
+- Es lo que la mayoría conoce, muy familiar
+- Funciona en prácticamente cualquier lado
+- Fácil de mantener
+
+**Desventajas:**
+- `uv` como paquete pip no es tan rápido como el binario compilado
+- Un poco menos elegante que las otras opciones
+
+
+
+#### Opción 3: Lo que estamos usando (Multi-stage build)
+
+Esta es la que ya tenemos. Copiamos el binario compilado de `uv` desde su imagen oficial, pero mantenemos Python slim como base. Es un equilibrio entre eficiencia y control.
+Lo elegimos porque la imagen final es lo más pequeña posible, por lo tanto, `uv` corre al máximo rendimiento (binario compilado) y además, tenemos control total de qué va en la imagen.
+
+```dockerfile
+FROM python:3.12-slim-trixie
+
+ARG START_TIME
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+WORKDIR /app
+
+COPY main.py settings.py pyproject.toml uv.lock .python-version ./scripts/entrypoint.sh ./
+
+RUN chmod +x ./entrypoint.sh
+
+ENV UV_NO_DEV=1
+
+RUN uv sync --locked;
+
+RUN BUILD_TIME=$(( $(date +%s) - $START_TIME)) && echo $BUILD_TIME > ./build_time.txt
+
+ENV BASE_IMAGE=python:3.12-slim-trixie
+
+ENTRYPOINT ["./entrypoint.sh" ]
+
+```
+
+
+**Ventajas:**
+- Contenedores más pequeños y rápidos en producción
+- Máximo rendimiento
+- Aprovecha lo mejor de ambos mundos
+
+**Desventajas:**
+- El Dockerfile es un poco más complejo si recién empezás con Docker
+- Requiere entender qué es un "multi-stage build"
+
+---
 
 
 ### Ejecución del sistema
