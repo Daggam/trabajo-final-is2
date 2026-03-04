@@ -1,5 +1,4 @@
 #!/bin/bash
-export BASE_IMAGE="python:3.12-slim-trixie";
 
 export BUILD_TIME=$(cat build_time.txt);
 
