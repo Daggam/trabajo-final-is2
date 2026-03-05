@@ -165,7 +165,7 @@ ENTRYPOINT ["./entrypoint.sh" ]
 
 
 
-#### Opción 3: Lo que estamos usando (Multi-stage build)
+#### Opción 3: Lo que estamos usando
 
 Esta es la que ya tenemos. Copiamos el binario compilado de `uv` desde su imagen oficial, pero mantenemos Python slim como base. Es un equilibrio entre eficiencia y control.
 Lo elegimos porque la imagen final es lo más pequeña posible, por lo tanto, `uv` corre al máximo rendimiento (binario compilado) y además, tenemos control total de qué va en la imagen.
@@ -203,7 +203,6 @@ ENTRYPOINT ["./entrypoint.sh" ]
 
 **Desventajas:**
 - El Dockerfile es un poco más complejo si recién empezás con Docker
-- Requiere entender qué es un "multi-stage build"
 
 ---
 
